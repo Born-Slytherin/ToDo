@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -9,8 +10,8 @@ function Signup() {
 
   return (
     <div className="">
-      <section class="bg-gray-50 dark:bg-black h-screen flex justify-center items-center">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen md:w-1/2 lg:py-0">
+      <section class="bg-black h-full flex justify-center items-center">
+        <div class="flex flex-col items-center w-full justify-center px-6 py-8 md:h-screen md:w-1/2 lg:py-0">
           <div class="w-full bg-yellow-300 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0  backdrop-blur-sm dark:border-gray-700">
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 class="text-xl font-bold leading-tight tracking-tight text-black md:text-2xl ">
@@ -28,7 +29,7 @@ function Signup() {
                     type="email"
                     name="email"
                     id="email"
-                    class="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="border border-gray-300 text-white sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@gmail.com"
                     required=""
                     onChange={(email) => {
@@ -48,7 +49,7 @@ function Signup() {
                     name="password"
                     id="password"
                     placeholder="••••••••"
-                    class=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class=" border border-gray-300 text-white sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required=""
                     onChange={(password) => {
                       setPassword(password.target.value);
@@ -70,7 +71,7 @@ function Signup() {
                     name="confirm-password"
                     id="confirm-password"
                     placeholder="username"
-                    class=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class=" border border-gray-300 text-white sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required=""
                     onChange={(username) => {
                       setUsername(username.target.value);
@@ -132,12 +133,12 @@ function Signup() {
                 </button>
                 <p class="text-sm font-light text-black">
                   Already have an account?{" "}
-                  <a
-                    href="#"
+                  <Link
+                    to="/signin"
                     class="font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
-                    Login here
-                  </a>
+                    Sign in
+                  </Link>
                 </p>
               </form>
             </div>

@@ -63,7 +63,7 @@ router.post("/signup", async (req, res) => {
             email: newuser.email,
             user_name: newuser.user_name,
           },
-          message:"User saved successfully"
+          message: "User saved successfully",
         });
       });
     }
@@ -78,14 +78,18 @@ router.post("/signin", async (req, res) => {
     bcrypt.compare(req.body.password, checkUser[0].password, (err, result) => {
       if (err) {
         res.status(500).send(err);
+        return;
       } else {
         if (result) {
           res.send({
-            email: checkUser[0].email,
-            user_name: checkUser[0].user_name,
+            data: {
+              email: checkUser[0].email,
+              user_name: checkUser[0].user_name,
+            },
+            message: "User logged in successfully",
           });
         } else {
-          res.status(404).send({ err: "Incorrect password" });
+          res.status(404).send({ err: "Invalid credentials" });
         }
       }
     });
@@ -100,7 +104,7 @@ router.put("/addtodo", (req, res) => {
     title: req.body.title,
     date: new Date(),
     description: req.body.description,
-    completed: req.body.completed,
+    completed: false,
   };
   console.log(req.body);
   User.findOneAndUpdate(
@@ -109,9 +113,12 @@ router.put("/addtodo", (req, res) => {
   ).then((updatedusers) => {
     if (updatedusers) {
       res.send({
-        email: updatedusers.email,
-        user_name: updatedusers.user_name,
-        todos: updatedusers.todos,
+        data: {
+          email: updatedusers.email,
+          user_name: updatedusers.user_name,
+          todos: updatedusers.todos,
+        },
+        message: "Todo added successfully",
       });
     } else {
       res.status(404).send({ err: "User not found!" });
@@ -156,20 +163,21 @@ router.put("/edittodo", (req, res) => {
   });
 });
 
-//DELETE TODO
-// router.put("/deletetodo", (req,res)=> {
-//   User.updateOne({email: req.body.email} , {pull : {todo : {_id : req.body.id}}} , (err,result)=> {
-//     if(err){
-//       res.status(500).send(err);
-//     }else{
-//       res.send({
-//         email: req.body.email,
-//         user_name: req.body.user_name,
-//         todos: req.body.todos
-//       })
-//     }
-//   })
-// })
+// VIEW TODO LIST
+router.post("/gettodo", (req, res) => {
+  User.findOne({ email: req.body.email }).then((user) => {
+    if (user) {
+      res.send({
+        data: {
+          todos: user.todos
+        },
+        message: "Todos Found",
+      });
+    } else {
+      res.status(404).send({ err: "User not found!" });
+    }
+  });
+});
 
 router.post("/deletetodo", async (req, res) => {
   var user = await User.findOne({ email: req.body.email });
